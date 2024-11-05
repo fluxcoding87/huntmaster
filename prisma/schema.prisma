@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  name String?
+  email String? @unique
+  emailVerified DateTime?
+  image String?
+  hashedPassword String?
+
+  accounts Account[]
+  profile Profile[]
+  jobs Job[]
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account{
+  id String @id @default(uuid())
+  userId String
+  type String
+  provider String
+  providerAccountId String
+  refresh_token String? 
+  access_token String? 
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String? 
+  session_state String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider,providerAccountId])
+}
+
+model Job {
+  id String @id @default(uuid())
+  userId String
+  name String
+  jobType String
+  employmentType String
+  experience Int
+  salary Int
+  location String
+  description String?
+  openings Int
+  department String
+  role String
+  aboutCompany String?
+  skills String[]
+  imageUrl String?
+  
+  user User @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id String @id @default(uuid())
+  userId String @unique
+  imageUrl String?
+  phoneNumber String?
+  description String?
+  gender String?
+  location String?
+  birthday DateTime
+  experienceYears Int
+  skills String[]
+  role String?
+  resumeUrl String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  educations Education[]
+  projects Project[]
+  employments Employment[]
+  achievements Achievement[]
+  languages Language[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+model Education {
+  id String @id @default(uuid())
+  profileId String @unique
+  qualification String
+  college_name String
+  startingTime DateTime
+  passoutTime DateTime
+  course_name String
+  course_type String
+  grade Int
+
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Project{
+  id String @id @default(uuid())
+  profileId String @unique
+  title String
+  client String
+  status String
+  workedFrom DateTime
+  description String
+  location String?
+  skills String[]
+
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Employment{
+  id String @id @default(uuid())
+  profileId String @unique
+  current Boolean?
+  type String
+  totalExperience DateTime
+  companyName String
+  jobTitle String
+  joiningDate DateTime
+  salary Int
+  skills String[]
+  notice_period String
+
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Achievement{
+  id String @id @default(uuid())
+  profileId String @unique
+  title String
+  description String?
+
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Language{
+  id String @id @default(uuid())
+  profileId String @unique
+  name String
+  comfortableIn String
+
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
