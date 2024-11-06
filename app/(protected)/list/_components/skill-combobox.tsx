@@ -21,11 +21,13 @@ import { useEffect, useState } from "react";
 import { frameworks } from "./job-departments-list";
 export const SkillCombobox = ({
   onSkillChange,
+  initialData,
 }: {
   onSkillChange: (skills: string[]) => void;
+  initialData?: string[];
 }) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<string[]>([]);
+  const [value, setValue] = useState<string[]>(initialData ?? []);
 
   const handleSetValue = (val: string) => {
     if (value.includes(val)) {
@@ -48,14 +50,14 @@ export const SkillCombobox = ({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between"
+            className="w-full h-full border border-black/50 justify-between"
           >
-            <div className="flex gap-2 justify-start">
+            <div className="flex gap-2 justify-start flex-wrap">
               {value?.length
                 ? value.map((val, i) => (
                     <div
                       key={i}
-                      className="px-2 py-1 rounded-xl border bg-slate-200 text-xs font-medium"
+                      className="px-2 py-1 rounded-xl border border-amber-700 bg-amber-600/40 text-xs font-semibold"
                     >
                       {
                         frameworks.find((framework) => framework.value === val)
@@ -71,7 +73,7 @@ export const SkillCombobox = ({
         <PopoverContent className="p-0 w-[800px] md:w-[400px]">
           <Command className="w-full">
             <CommandInput placeholder="Search skills..." />
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No skill found.</CommandEmpty>
             <CommandList>
               <CommandGroup>
                 <CommandList>

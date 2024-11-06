@@ -1,5 +1,6 @@
 import { getCurrentProfile } from "@/actions/get-current-profile";
 import { getCurrentUser } from "@/actions/get-current-user";
+import { UpdateProfileFunctionProps } from "@/hooks/profile/use-update-profile";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
@@ -8,7 +9,17 @@ export async function PATCH(
   { params }: { params: { profileId: string } }
 ) {
   try {
-    const { resumeUrl } = await req.json();
+    const {
+      resumeUrl,
+      phoneNumber,
+      gender,
+      location,
+      birthday,
+      experienceYears,
+      role,
+      skills,
+      description,
+    } = await req.json();
     const user = await getCurrentUser();
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -28,6 +39,14 @@ export async function PATCH(
       },
       data: {
         resumeUrl,
+        phoneNumber,
+        gender,
+        location,
+        birthday: new Date(birthday),
+        experienceYears: +experienceYears,
+        role,
+        skills,
+        description,
       },
     });
     return NextResponse.json(profile);

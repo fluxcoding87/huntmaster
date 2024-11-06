@@ -59,6 +59,11 @@ export async function POST(req: Request) {
     }
 
     const birthDate = new Date(birthday);
+    let newLocation = location;
+
+    if (!location) {
+      newLocation = "Remote";
+    }
 
     const profile = await db.profile.create({
       data: {
@@ -66,7 +71,7 @@ export async function POST(req: Request) {
         imageUrl,
         phoneNumber,
         gender,
-        location,
+        location: newLocation,
         birthday: birthDate,
         experienceYears: +experienceYears,
         skills,

@@ -2,6 +2,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useGetProfile } from "@/hooks/profile/use-get-profile";
 import { useUpdateProfile } from "@/hooks/profile/use-update-profile";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import Link from "next/link";
@@ -17,12 +18,16 @@ export const EditResumeForm = ({
   userName,
   id,
 }: EditResumeWidgetProps) => {
+  const { data: profile } = useGetProfile();
   const { mutate, isPending } = useUpdateProfile(id);
   const [resumeUrl, setResumeUrl] = useState(initialData);
   const [uploadedResumeName, setUploadedResumeName] = useState(undefined);
   const handleUpload = (result: any) => {
     mutate({
       resumeUrl: result.info?.secure_url,
+      skills: profile?.skills,
+      birthday: profile?.birthday.toString(),
+      experienceYears: profile?.experienceYears.toString(),
     });
     setResumeUrl(result.info?.secure_url);
     setUploadedResumeName(result.info?.display_name);
@@ -62,6 +67,7 @@ export const EditResumeForm = ({
         >
           {({ open }) => (
             <div
+              aria-disabled={isPending}
               onClick={() => open()}
               className="flex flex-col gap-y-2 items-center justify-center p-8 rounded-xl border-2 border-spacing-10 border-dashed border-amber-600 cursor-pointer"
             >

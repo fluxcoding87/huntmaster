@@ -27,3 +27,13 @@ export type CompleteProfile = Profile & {
 } & { educations: Education[] } & { projects: Project[] } & {
   employments: Employment[];
 } & { achievements: Achievement[] } & { languages: Language[] };
+
+export const editProfileSchema = z.object({
+  phoneNumber: z.string().optional(),
+  gender: z.string().optional(),
+  location: z.string().optional(),
+  birthday: z.string().min(1, "Date is required"),
+  experienceYears: z.string().min(1, "Experience is required"),
+  role: z.string().optional(),
+  name: z.string().min(1, "Name is required"),
+});

@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import PhoneInputComponent from "react-phone-number-input";
-// import { E164Number } from "@types/react-phone-number-input";
+
 import "react-phone-number-input/style.css";
 
 interface PhoneInputProps {

@@ -1,23 +1,20 @@
-import { profileSchema } from "@/types/profile";
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { toast } from "sonner";
-import { z } from "zod";
-export const usePostProfile = () => {
-  const queryClient = useQueryClient();
 
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async (values: z.infer<typeof profileSchema>) => {
-      const response = await axios.post(`/api/profile`, values);
+    mutationFn: async ({ name, image }: { name?: string; image?: string }) => {
+      const response = await axios.patch("/api/user", { name, image });
       if (!response.data) {
-        throw new Error("Something went wrong!");
+        throw new Error("Something went wrong");
       }
       return response?.data;
     },
     onSuccess: () => {
-      toast.success("Profile Created!");
+      queryClient.invalidateQueries({ queryKey: ["current"] });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
     onError: () => {

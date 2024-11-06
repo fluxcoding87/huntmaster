@@ -101,14 +101,14 @@ model Profile {
 
 model Education {
   id String @id @default(uuid())
-  profileId String @unique
+  profileId String 
   qualification String
   college_name String
   startingTime DateTime
   passoutTime DateTime
   course_name String
   course_type String
-  grade Int
+  grade Decimal
 
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
 
@@ -117,7 +117,7 @@ model Education {
 }
 model Project{
   id String @id @default(uuid())
-  profileId String @unique
+  profileId String 
   title String
   client String
   status String
@@ -134,7 +134,7 @@ model Project{
 
 model Employment{
   id String @id @default(uuid())
-  profileId String @unique
+  profileId String 
   current Boolean?
   type String
   totalExperience DateTime
@@ -153,7 +153,7 @@ model Employment{
 
 model Achievement{
   id String @id @default(uuid())
-  profileId String @unique
+  profileId String 
   title String
   description String?
 
@@ -164,7 +164,7 @@ model Achievement{
 }
 model Language{
   id String @id @default(uuid())
-  profileId String @unique
+  profileId String 
   name String
   comfortableIn String
 

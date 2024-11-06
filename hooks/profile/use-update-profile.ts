@@ -1,21 +1,27 @@
-import { loginFormSchema } from "@/types/auth";
-import { listJobSchema } from "@/types/list-job";
-import { profileSchema } from "@/types/profile";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { z } from "zod";
+
+export interface UpdateProfileFunctionProps {
+  resumeUrl?: string;
+  phoneNumber?: string;
+  gender?: string;
+  location?: string;
+  birthday?: string;
+  experienceYears?: string;
+  role?: string;
+  skills?: string[];
+  description?: string;
+}
+
 export const useUpdateProfile = (profileId: string) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: async ({ resumeUrl }: { resumeUrl: string }) => {
-      const response = await axios.patch(`/api/profile/${profileId}`, {
-        resumeUrl,
-      });
+    mutationFn: async (values: UpdateProfileFunctionProps) => {
+      const response = await axios.patch(`/api/profile/${profileId}`, values);
       if (!response.data) {
         throw new Error("Something went wrong!");
       }

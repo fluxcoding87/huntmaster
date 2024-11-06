@@ -1,24 +1,21 @@
-import { profileSchema } from "@/types/profile";
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-
 import { toast } from "sonner";
-import { z } from "zod";
-export const usePostProfile = () => {
+export const useDeleteEducation = (id: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (values: z.infer<typeof profileSchema>) => {
-      const response = await axios.post(`/api/profile`, values);
+    mutationFn: async ({}: { userId?: string }) => {
+      const response = await axios.delete(`/api/profile/education/${id}`);
       if (!response.data) {
         throw new Error("Something went wrong!");
       }
       return response?.data;
     },
-    onSuccess: () => {
-      toast.success("Profile Created!");
+    onSuccess: ({ data }) => {
+      toast.success("Education Deleted!");
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["educations"] });
     },
     onError: () => {
       console.error("Failed");

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useState, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
 import {
@@ -10,14 +11,35 @@ import {
 
 interface CountryStateCitySelectProps {
   onLocationChange: (location: string) => void; // Callback to pass selected location to parent
+  defaultValue?: string;
 }
 
 const CountryStateCitySelect = ({
   onLocationChange,
+  defaultValue,
 }: CountryStateCitySelectProps) => {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const valueArray = defaultValue?.split(", ");
+  const countryIsoCode = valueArray?.[0]
+    ? Country.getAllCountries().find((item) => item.name === valueArray[0])
+        ?.isoCode
+    : null;
+
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(
+    countryIsoCode ?? null
+  );
+  const stateIsoCode = valueArray?.[1]
+    ? State.getStatesOfCountry(selectedCountry!).find(
+        (item) => item.name === valueArray[1]
+      )?.isoCode
+    : null;
+
+  const [selectedState, setSelectedState] = useState<string | null>(
+    stateIsoCode ?? null
+  );
+
+  const [selectedCity, setSelectedCity] = useState<string | null>(
+    valueArray?.[2] ?? null
+  );
 
   // This will store the full location as a single string
   const [fullLocation, setFullLocation] = useState<string>("");
@@ -74,7 +96,10 @@ const CountryStateCitySelect = ({
   return (
     <div className="flex items-center gap-x-4">
       {/* Country Select */}
-      <Select onValueChange={handleCountryChange}>
+      <Select
+        defaultValue={selectedCountry ?? undefined}
+        onValueChange={handleCountryChange}
+      >
         <SelectTrigger>
           <SelectValue placeholder="Select Country or Remote" />
         </SelectTrigger>
@@ -90,7 +115,10 @@ const CountryStateCitySelect = ({
 
       {/* Conditionally render State Select */}
       {selectedCountry && selectedCountry !== "remote" && (
-        <Select onValueChange={handleStateChange}>
+        <Select
+          defaultValue={selectedState ?? undefined}
+          onValueChange={handleStateChange}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select State" />
           </SelectTrigger>
@@ -106,7 +134,10 @@ const CountryStateCitySelect = ({
 
       {/* Conditionally render City Select */}
       {selectedState && (
-        <Select onValueChange={handleCityChange}>
+        <Select
+          defaultValue={selectedCity ?? undefined}
+          onValueChange={handleCityChange}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select City" />
           </SelectTrigger>
