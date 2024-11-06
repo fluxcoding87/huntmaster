@@ -81,7 +81,7 @@ export const EditLangForm = ({ onCancel, initialData }: EditLangFormProps) => {
           <div className="flex flex-col gap-y-1">
             <div className="flex items-center gap-x-2">
               <span className="text-lg font-semibold text-gray-800">
-                Languages known
+                Edit a Language
               </span>
               <Popover>
                 <PopoverTrigger asChild>

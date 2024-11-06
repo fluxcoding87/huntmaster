@@ -6,6 +6,7 @@ import { EducationCard } from "@/components/profile/education/education-card";
 import { SkillsCard } from "./skills-card";
 import { ProfileSummaryCard } from "./profile-summary-card";
 import { LanguagesCard } from "@/components/profile/languages/languages-card";
+import { AchievementCard } from "@/components/profile/achievements/achievement-card";
 
 interface ProfileDetailsPageProps {
   data: CompleteProfile;
@@ -21,6 +22,10 @@ export const ProfileDetailsPage = ({ data }: ProfileDetailsPageProps) => {
         <EducationCard data={data.educations} />
         <SkillsCard initialData={data.skills} id={data.id} />
         <LanguagesCard data={data.languages} />
+        <AchievementCard
+          data={data.achievements}
+          educationsData={data.educations}
+        />
         <ProfileSummaryCard initialData={data.description} id={data.id} />
         <EditResumeForm
           initialData={data.resumeUrl}

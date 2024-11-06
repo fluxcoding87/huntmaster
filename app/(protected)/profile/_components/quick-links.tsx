@@ -11,7 +11,7 @@ const links = [
     label: "Languages",
   },
   {
-    label: "Achievements",
+    label: "Acedemic Achievements",
   },
   {
     label: "Projects",

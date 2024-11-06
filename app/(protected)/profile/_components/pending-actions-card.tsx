@@ -44,12 +44,12 @@ export const PendingActionsCard = ({
               <div className="bg-white rounded-full p-2 flex items-center justify-center">
                 <School2Icon className="size-4 text-neutral-500" />
               </div>
-              <span className="text-sm font-semibold text-neutral-600 pl-4 flex-1">
+              <span className="text-sm tracking-tight font-semibold text-neutral-600 pl-4 flex-1">
                 Add Education
               </span>
               <div className="flex items-center gap-x-2 bg-white rounded-2xl text-green-500 px-2">
                 <ArrowUpIcon className="size-4" />
-                <span className="text-sm">10%</span>
+                <span className="text-sm tracking-tight">10%</span>
               </div>
             </div>
           )}
@@ -58,12 +58,12 @@ export const PendingActionsCard = ({
               <div className="bg-white rounded-full p-2 flex items-center justify-center">
                 <FolderIcon className="size-4 text-neutral-500" />
               </div>
-              <span className="text-sm font-semibold text-neutral-600 pl-4 flex-1">
+              <span className="text-sm tracking-tight font-semibold text-neutral-600 pl-4 flex-1">
                 Add Projects
               </span>
               <div className="flex items-center gap-x-2 bg-white rounded-2xl text-green-500 px-2">
                 <ArrowUpIcon className="size-4" />
-                <span className="text-sm">30%</span>
+                <span className="text-sm tracking-tight">30%</span>
               </div>
             </div>
           )}
@@ -72,12 +72,12 @@ export const PendingActionsCard = ({
               <div className="bg-white rounded-full p-2 flex items-center justify-center">
                 <TrophyIcon className="size-4 text-neutral-500" />
               </div>
-              <span className="text-sm font-semibold text-neutral-600 pl-4 flex-1">
-                Add Achievements
+              <span className="text-sm tracking-tight font-semibold text-neutral-600 pl-4 flex-1">
+                Add Acedemic Achievements
               </span>
               <div className="flex items-center gap-x-2 bg-white rounded-2xl text-green-500 px-2">
                 <ArrowUpIcon className="size-4" />
-                <span className="text-sm">10%</span>
+                <span className="text-sm tracking-tight">10%</span>
               </div>
             </div>
           )}
@@ -86,12 +86,12 @@ export const PendingActionsCard = ({
               <div className="bg-white rounded-full p-2 flex items-center justify-center">
                 <Briefcase className="size-4 text-neutral-500" />
               </div>
-              <span className="text-sm font-semibold text-neutral-600 pl-4 flex-1">
+              <span className="text-sm tracking-tight font-semibold text-neutral-600 pl-4 flex-1">
                 Add Employments
               </span>
               <div className="flex items-center gap-x-2 bg-white rounded-2xl text-green-500 px-2">
                 <ArrowUpIcon className="size-4" />
-                <span className="text-sm">20%</span>
+                <span className="text-sm tracking-tight">20%</span>
               </div>
             </div>
           )}
@@ -100,12 +100,12 @@ export const PendingActionsCard = ({
               <div className="bg-white rounded-full p-2 flex items-center justify-center">
                 <LanguagesIcon className="size-4 text-neutral-500" />
               </div>
-              <span className="text-sm font-semibold text-neutral-600 pl-4 flex-1">
+              <span className="text-sm tracking-tight font-semibold text-neutral-600 pl-4 flex-1">
                 Add Languages
               </span>
               <div className="flex items-center gap-x-2 bg-white rounded-2xl text-green-500 px-2">
                 <ArrowUpIcon className="size-4" />
-                <span className="text-sm">10%</span>
+                <span className="text-sm tracking-tight">10%</span>
               </div>
             </div>
           )}
