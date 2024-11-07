@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUpdateProfile } from "@/hooks/profile/use-update-profile";
 import { SkillCombobox } from "../../list/_components/skill-combobox";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useGetProfile } from "@/hooks/profile/use-get-profile";
 import { Loader } from "@/components/loader";
 
@@ -19,13 +19,14 @@ export const EditSkillsForm = ({
 }: EditSkillFormProps) => {
   const [skills, setSkills] = useState<string[]>(initialData ?? []);
   const { mutate } = useUpdateProfile(id);
+  const handleSkillChange = useCallback((values: string[]) => {
+    setSkills(values);
+  }, []);
   const { data: profile, isLoading } = useGetProfile();
   if (isLoading) {
     return <Loader />;
   }
-  const handleSkillChange = (values: string[]) => {
-    setSkills(values);
-  };
+
   const handleSkillSubmit = () => {
     mutate({
       skills,

@@ -119,14 +119,13 @@ model Education {
 model Project{
   id String @id @default(uuid())
   profileId String 
-  title String
-  client String
-  status String
-  workedFrom DateTime
+  name String
+  workedFrom String
+  workedTo String
   description String
-  location String?
   skills String[]
-
+  projectUrl String?
+  
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -136,15 +135,14 @@ model Project{
 model Employment{
   id String @id @default(uuid())
   profileId String 
+  company_name String
+  designation String
+  workedFrom String
+  workedTo String
   current Boolean?
-  type String
-  totalExperience DateTime
-  companyName String
-  jobTitle String
-  joiningDate DateTime
-  salary Int
-  skills String[]
-  notice_period String
+  notice_period String?
+  annual_salary Int?
+  description String
 
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
 

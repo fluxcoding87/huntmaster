@@ -22,3 +22,26 @@ export const textLimiter = (text: string, wordLimit: number) => {
   }
   return limitedText;
 };
+
+export const generateYears = (): string[] => {
+  const currentYear = new Date().getFullYear();
+  const startYear = 1999;
+  const yearArray = [];
+
+  for (let year = startYear; year <= currentYear; year++) {
+    yearArray.push(year.toString());
+  }
+
+  return yearArray;
+};
+
+export function convertMonthsToYears(totalMonths: number) {
+  const years = Math.floor(totalMonths / 12); // Get the full years
+  const months = totalMonths % 12; // Get the remaining months
+
+  if (months === 0) {
+    return `${years} year`;
+  }
+
+  return `${years} Year and ${months} months`;
+}
