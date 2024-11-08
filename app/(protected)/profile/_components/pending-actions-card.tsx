@@ -48,7 +48,7 @@ export const PendingActionsCard = ({
             </div>
             <div className="flex flex-col gap-y-1">
               <span className="text-xl font-bold text-gray-800">
-                Your profile is complete 100%
+                Your profile is 100% complete
               </span>
             </div>
           </div>

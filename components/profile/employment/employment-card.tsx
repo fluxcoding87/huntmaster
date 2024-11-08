@@ -14,12 +14,14 @@ import { AiFillPinterest } from "react-icons/ai";
 import { FaMapPin } from "react-icons/fa";
 import { differenceInMonths, differenceInYears } from "date-fns";
 import { convertMonthsToYears } from "@/lib/utils";
+import { RefObject } from "react";
 
 interface EmploymentCardProps {
   data: Employment[];
+  ref: RefObject<HTMLDivElement>;
 }
 
-export const EmploymentCard = ({ data }: EmploymentCardProps) => {
+export const EmploymentCard = ({ data, ref }: EmploymentCardProps) => {
   const { open } = useAddEmploymentModal();
   const totalWorkExperience = data.reduce((acc, item) => {
     const workedFromMonth = item.workedFrom.split("'")[0];
@@ -31,7 +33,7 @@ export const EmploymentCard = ({ data }: EmploymentCardProps) => {
     return (acc += differenceInMonths(workedToDate, workedFromDate));
   }, 0);
   return (
-    <Card>
+    <Card ref={ref}>
       <AddEmploymentModal />
       <CardHeader>
         <CardTitle>

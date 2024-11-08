@@ -4,15 +4,17 @@ import { PlusIcon } from "lucide-react";
 import { LanguageDetailsCard } from "./language-details-card";
 import { useAddLangModal } from "@/hooks/languages/use-add-lang-modal";
 import { AddLangModal } from "./add-lang-modal";
+import { RefObject } from "react";
 
 interface LanguagesCardProps {
   data: Language[];
+  ref: RefObject<HTMLDivElement>;
 }
 
-export const LanguagesCard = ({ data }: LanguagesCardProps) => {
+export const LanguagesCard = ({ data, ref }: LanguagesCardProps) => {
   const { open } = useAddLangModal();
   return (
-    <Card>
+    <Card ref={ref}>
       <AddLangModal />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">

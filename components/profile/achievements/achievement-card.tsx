@@ -4,19 +4,22 @@ import { Achievement, Education } from "@prisma/client";
 import { PlusIcon } from "lucide-react";
 import { AddAchievementModal } from "./add-achievement-modal";
 import { AchievementDetailsCard } from "./achievement-details-card";
+import { RefObject } from "react";
 
 interface AchievementCardProps {
   data: Achievement[];
   educationsData: Education[];
+  ref: RefObject<HTMLDivElement>;
 }
 
 export const AchievementCard = ({
   data,
   educationsData,
+  ref,
 }: AchievementCardProps) => {
   const { open } = useAddAchievementModal();
   return (
-    <Card>
+    <Card ref={ref}>
       <AddAchievementModal educationsData={educationsData} />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">

@@ -5,15 +5,17 @@ import { AddEducationModal } from "./add-education-modal";
 import { useAddEducationModal } from "@/hooks/education/use-add-education-modal";
 import { EducationDetailCard } from "./education-detail-card";
 import { EditEducationModal } from "./edit-education-modal";
+import { RefObject } from "react";
 
 interface EducationCardProps {
   data: Education[];
+  ref: RefObject<HTMLDivElement>;
 }
 
-export const EducationCard = ({ data }: EducationCardProps) => {
+export const EducationCard = ({ data, ref }: EducationCardProps) => {
   const { open } = useAddEducationModal();
   return (
-    <Card>
+    <Card ref={ref}>
       <AddEducationModal />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">

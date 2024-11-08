@@ -6,17 +6,19 @@ import { useGetProfile } from "@/hooks/profile/use-get-profile";
 import { useUpdateProfile } from "@/hooks/profile/use-update-profile";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import Link from "next/link";
-import { useState } from "react";
+import { RefObject, useState } from "react";
 interface EditResumeWidgetProps {
   initialData: string;
   userName: string;
   id: string;
+  ref: RefObject<HTMLDivElement>;
 }
 
 export const EditResumeForm = ({
   initialData,
   userName,
   id,
+  ref,
 }: EditResumeWidgetProps) => {
   const { data: profile } = useGetProfile();
   const { mutate, isPending } = useUpdateProfile(id);
@@ -34,7 +36,7 @@ export const EditResumeForm = ({
   };
 
   return (
-    <Card>
+    <Card ref={ref}>
       <CardHeader>
         <CardTitle>
           <div className="flex flex-col gap-y-4">

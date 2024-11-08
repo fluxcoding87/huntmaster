@@ -4,15 +4,17 @@ import { Project } from "@prisma/client";
 import { PlusIcon } from "lucide-react";
 import { AddProjectModal } from "./add-project-modal";
 import { ProjectDetailsCard } from "./project-details-card";
+import { RefObject } from "react";
 
 interface ProjectsCardProps {
   data: Project[];
+  ref: RefObject<HTMLDivElement>;
 }
 
-export const ProjectsCard = ({ data }: ProjectsCardProps) => {
+export const ProjectsCard = ({ data, ref }: ProjectsCardProps) => {
   const { open } = useAddProjectModal();
   return (
-    <Card>
+    <Card ref={ref}>
       <AddProjectModal />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">

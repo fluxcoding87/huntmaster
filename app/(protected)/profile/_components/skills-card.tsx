@@ -3,20 +3,22 @@ import { PencilIcon, PlusIcon } from "lucide-react";
 import { frameworks } from "../../list/_components/job-departments-list";
 import { useEditSkillsModal } from "@/hooks/profile/use-edit-skills-modal";
 import { EditSkillsModal } from "./edit-skills-modal";
+import { RefObject } from "react";
 
 interface SkillsCardProps {
   initialData: string[];
   id: string;
+  ref: RefObject<HTMLDivElement>;
 }
 
-export const SkillsCard = ({ initialData, id }: SkillsCardProps) => {
+export const SkillsCard = ({ initialData, id, ref }: SkillsCardProps) => {
   const { open } = useEditSkillsModal();
   const filteredSkills = initialData.map((skill) => {
     const filteredSkill = frameworks.find((item) => item.value === skill);
     return filteredSkill;
   });
   return (
-    <Card>
+    <Card ref={ref}>
       <EditSkillsModal initialData={initialData} id={id} />
       <CardHeader>
         <CardTitle className="flex items-center gap-x-2">

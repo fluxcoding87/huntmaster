@@ -3,19 +3,22 @@ import { textLimiter } from "@/lib/utils";
 import { PencilIcon, PlusIcon } from "lucide-react";
 import { EditSummaryModal } from "./edit-summary-modal";
 import { useEditDescriptionModal } from "@/hooks/profile/use-edit-description-modal";
+import { RefObject } from "react";
 
 interface ProfileSummaryCardProps {
   initialData: string | null;
   id: string;
+  ref: RefObject<HTMLDivElement>;
 }
 
 export const ProfileSummaryCard = ({
   initialData,
   id,
+  ref,
 }: ProfileSummaryCardProps) => {
   const { open } = useEditDescriptionModal();
   return (
-    <Card>
+    <Card ref={ref}>
       <EditSummaryModal initialData={initialData} id={id} />
       <CardHeader>
         <CardTitle className="">
