@@ -1,7 +1,8 @@
 import { JobIdClient } from "./client";
 
-const JobIdPage = ({ params }: { params: { jobId: string } }) => {
-  return <JobIdClient id={params.jobId} />;
+const JobIdPage = async ({ params }: { params: { jobId: string } }) => {
+  const { jobId } = await params;
+  return <JobIdClient id={jobId} />;
 };
 
 export default JobIdPage;

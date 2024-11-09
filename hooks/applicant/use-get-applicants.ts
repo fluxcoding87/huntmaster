@@ -1,13 +1,12 @@
-import { FullUser } from "@/types/employer";
-import { User } from "@prisma/client";
+import { FullApplicant } from "@/types/applicants";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export function useCurrent() {
+export function useGetApplicants() {
   const query = useQuery({
-    queryKey: ["current"],
+    queryKey: ["applicants"],
     queryFn: async () => {
-      const response = await axios.get<FullUser>("/api/current");
+      const response = await axios.get<FullApplicant[]>(`/api/applicants`);
       if (!response.data) {
         return null;
       }

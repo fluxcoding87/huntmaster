@@ -25,7 +25,7 @@ model User{
   accounts Account[]
   profile Profile[]
   jobs Job[]
-
+  employer Employer?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -68,7 +68,8 @@ model Job {
   imageUrl String?
   
   user User @relation(fields: [userId], references: [id])
-  
+  applicants Applicant[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -92,6 +93,7 @@ model Profile {
   employments Employment[]
   achievements Achievement[]
   languages Language[]
+  applicants Applicant[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -170,6 +172,32 @@ model Language{
   comfortableIn String
 
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Employer {
+  id String @id @default(uuid())
+  userId String @unique
+  name String
+  email String
+  contact_number String
+  name_of_organization String
+  city String
+  is_Allowed Boolean @default(false)
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Applicant{
+  id String @id @default(uuid())
+  jobId String
+  profileId String
+
+  job Job @relation(fields: [jobId],references: [id])
+  profile Profile @relation(fields: [profileId],references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -7,6 +7,7 @@ export async function POST(
   { params }: { params: { userId: string } }
 ) {
   try {
+    const { userId } = await params;
     const user = getCurrentUser();
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -45,7 +46,7 @@ export async function POST(
 
     const job = await db.job.create({
       data: {
-        userId: params.userId,
+        userId,
         name,
         employmentType,
         experience: +experience,

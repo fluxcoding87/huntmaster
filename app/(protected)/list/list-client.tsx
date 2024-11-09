@@ -13,9 +13,15 @@ export const ListClient = () => {
   if (!user) {
     redirect("/sign-in");
   }
-  return (
-    <div className="flex flex-col space-y-6 mt-6">
-      <ListJobForm userId={user?.id} />
-    </div>
-  );
+  if (user.employer) {
+    if (user.employer.is_Allowed) {
+      return (
+        <div className="flex flex-col space-y-6 mt-6">
+          <ListJobForm userId={user?.id} />
+        </div>
+      );
+    } else {
+      return redirect("/employer");
+    }
+  }
 };

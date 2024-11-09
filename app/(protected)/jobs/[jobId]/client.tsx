@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useGetJob } from "@/hooks/jobs/use-get-job";
 import {
   Building2Icon,
+  CheckIcon,
   CoinsIcon,
   IndianRupeeIcon,
   MapPinIcon,
@@ -20,12 +21,21 @@ import { Button } from "@/components/ui/button";
 import { FaPaperPlane, FaRegBookmark } from "react-icons/fa";
 import { useCurrent } from "@/hooks/auth/use-current";
 import { redirect, useRouter } from "next/navigation";
+import { usePostApplicant } from "@/hooks/applicant/use-post-applicant";
+import { useGetProfile } from "@/hooks/profile/use-get-profile";
+import { useGetApplicant } from "@/hooks/applicant/use-get-applicant";
+import { toast } from "sonner";
 
 export const JobIdClient = ({ id }: { id: string }) => {
   const router = useRouter();
+  const { mutate, isPending } = usePostApplicant(id);
   const { data: job, isLoading: jobIsLoading } = useGetJob(id);
   const { data: user, isLoading: userIsLoading } = useCurrent();
-  const isLoading = userIsLoading || jobIsLoading;
+  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
+  const { data: applicant, isLoading: isApplicantLoading } =
+    useGetApplicant(id);
+  const isLoading =
+    userIsLoading || jobIsLoading || isProfileLoading || isApplicantLoading;
   if (isLoading) {
     return <Loader />;
   }
@@ -42,6 +52,9 @@ export const JobIdClient = ({ id }: { id: string }) => {
   const filteredDepartment = jobDepartments.find(
     (item) => item.value === job.department
   );
+  const onApply = () => {
+    mutate();
+  };
   return (
     <Card>
       <CardHeader>
@@ -161,17 +174,41 @@ export const JobIdClient = ({ id }: { id: string }) => {
               {job.openings} Openings
             </h2>
             <div className="flex items-center gap-x-4">
-              <Button variant="secondary" className="flex items-center gap-x-2">
+              <Button
+                variant="secondary"
+                className="flex items-center gap-x-2"
+                disabled={isPending}
+              >
                 Save
                 <FaRegBookmark />
               </Button>
-              <Button
-                className="flex items-center gap-x-2"
-                onClick={() => router.push(`/jobs/${job.id}/apply`)}
-              >
-                Apply for this Job
-                <FaPaperPlane />
-              </Button>
+              {applicant ? (
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-x-2 bg-green-500/50 border border-green-700 hover:bg-green-500/50 hover:opacity-75"
+                  onClick={() =>
+                    toast.success("You have Already applied to this job!")
+                  }
+                >
+                  Applied
+                  <CheckIcon />
+                </Button>
+              ) : (
+                <Button
+                  className="flex items-center gap-x-2"
+                  onClick={() => {
+                    if (!profile) {
+                      return router.push("/profile");
+                    } else {
+                      onApply();
+                    }
+                  }}
+                  disabled={isPending}
+                >
+                  Apply for this Job
+                  <FaPaperPlane />
+                </Button>
+              )}
             </div>
           </div>
         </div>

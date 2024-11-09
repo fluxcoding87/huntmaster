@@ -54,9 +54,10 @@ export const PendingActionsCard = ({
           </div>
         </div>
       )}
-      <CardContent>
+      <CardContent className="p-0 rounded-xl overflow-hidden">
         <div
           className={cn(
+            "py-2",
             missingDetailsCount === 0 ? "bg-white" : "bg-amber-600/20"
           )}
         >
@@ -132,7 +133,7 @@ export const PendingActionsCard = ({
               </div>
             )}
           </div>
-          <div className="flex items-center justify-center mt-2">
+          <div className="flex items-center justify-center">
             {missingDetailsCount === 0 ? (
               <div></div>
             ) : (

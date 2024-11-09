@@ -19,10 +19,9 @@ export const useListJob = (userId: string) => {
       return response?.data;
     },
     onSuccess: ({ data }) => {
-      router.push("/jobs");
       toast.success("Job Posted Successfully!");
+      router.push("/");
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
-      queryClient.invalidateQueries({ queryKey: ["jobs", data.id] });
     },
     onError: () => {
       console.error("Failed");

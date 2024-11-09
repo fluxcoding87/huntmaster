@@ -1,39 +1,50 @@
 "use client";
-import { Clipboard } from "lucide-react";
+import { BriefcaseBusinessIcon, NotebookIcon, UserPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchBar } from "./search-bar";
 import { Button } from "./ui/button";
-import { MdWorkOutline } from "react-icons/md";
 import { IoMdPaper } from "react-icons/io";
 import { UserButton } from "./user-button";
-import { User } from "@prisma/client";
 import { useCurrent } from "@/hooks/auth/use-current";
 import { Loader } from "./loader";
-
-const navItemsMap = [
-  {
-    icon: MdWorkOutline,
-    label: "Jobs",
-    href: "/",
-  },
-  {
-    icon: Clipboard,
-    label: "List a Job",
-    href: "/list",
-  },
-  {
-    icon: IoMdPaper,
-    label: "Applies",
-    href: "/applies",
-  },
-];
+import { MdDashboard } from "react-icons/md";
 
 export const Navbar = () => {
   const { data: user, isLoading } = useCurrent();
   if (isLoading) {
     return <Loader />;
   }
+  const navItemsMap = [
+    {
+      icon: BriefcaseBusinessIcon,
+      label: "Jobs",
+      href: "/",
+    },
+
+    {
+      icon: IoMdPaper,
+      label: "Applies",
+      href: "/applies",
+    },
+    {
+      icon: user?.employer
+        ? user.employer.is_Allowed
+          ? NotebookIcon
+          : UserPlus
+        : UserPlus,
+      label: user?.employer
+        ? user.employer.is_Allowed
+          ? "List a job"
+          : "Become an employer"
+        : "Become an employer",
+      href: user?.employer
+        ? user.employer.is_Allowed
+          ? "/list"
+          : "/employer"
+        : "/employer",
+    },
+  ];
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex items-center justify-between py-6 px-4">
@@ -54,6 +65,15 @@ export const Navbar = () => {
               <span className="text-neutral-600">{item.label}</span>
             </Link>
           ))}
+          {user?.employer && user.employer.is_Allowed && (
+            <Link
+              href="/employer/dashboard"
+              className="flex items-center gap-x-1 text-sm font-medium hover:opacity-75 transition"
+            >
+              <MdDashboard className="text-neutral-500 size-5" />
+              <span className="text-neutral-600">Employer Dashboard</span>
+            </Link>
+          )}
           <SearchBar />
         </div>
         {!user ? (

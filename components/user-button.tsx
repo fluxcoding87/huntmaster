@@ -9,6 +9,7 @@ import { useCurrent } from "@/hooks/auth/use-current";
 import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 export const UserButton = () => {
   const router = useRouter();
@@ -20,6 +21,11 @@ export const UserButton = () => {
       toast.success("Logged Out!");
     }
   };
+  const adminIds: string[] = process.env.NEXT_PUBLIC_ADMIN_IDS
+    ? process.env.NEXT_PUBLIC_ADMIN_IDS.split(", ")
+    : [];
+  const isAdmin: boolean = !!adminIds.find((item) => item === user?.email);
+
   return (
     <div>
       <Popover>
@@ -65,6 +71,16 @@ export const UserButton = () => {
               <User2Icon />
               Profile
             </Button>
+            {isAdmin && (
+              <Button
+                onClick={() => router.push("/admin")}
+                variant="secondary"
+                className="flex items-center justify-center gap-x-2 font-bold text-sm border shadow-sm hover:opacity-75 hover:shadow-md transition"
+              >
+                <MdAdminPanelSettings />
+                Admin Settings
+              </Button>
+            )}
             <Button
               variant="secondary"
               className="flex items-center justify-center gap-x-2 font-bold text-sm border shadow-sm hover:shadow-md hover:opacity-75 transition"

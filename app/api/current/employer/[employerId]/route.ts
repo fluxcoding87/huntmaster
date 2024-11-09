@@ -2,30 +2,29 @@ import { getCurrentUser } from "@/actions/get-current-user";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function GET(
+export async function PATCH(
   req: Request,
-  { params }: { params: { jobId: string } }
+  { params }: { params: { employerId: string } }
 ) {
   try {
-    const { jobId } = await params;
+    const { is_Allowed } = await req.json();
+    const { employerId } = await params;
+
     const user = await getCurrentUser();
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    if (!jobId) {
-      return new NextResponse("Job Id Required", { status: 400 });
-    }
-
-    const job = await db.job.findUnique({
+    const employer = await db.employer.update({
       where: {
-        id: jobId,
+        id: employerId,
+      },
+      data: {
+        is_Allowed,
       },
     });
-
-    return NextResponse.json(job);
+    return NextResponse.json(employer);
   } catch (e) {
-    console.log("JOB_ID_GET", e);
+    console.log("EMPLOYERS_POST", e);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

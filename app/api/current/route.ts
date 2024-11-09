@@ -14,6 +14,9 @@ export async function GET() {
       where: {
         email: session?.user?.email,
       },
+      include: {
+        employer: true,
+      },
     });
 
     return NextResponse.json(user);
