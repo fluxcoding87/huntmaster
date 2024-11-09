@@ -63,7 +63,7 @@ export const LikedJobs = ({
         if (idx > 9) {
           return null;
         }
-        return <JobCard key={item.id} data={item} />;
+        return <JobCard key={item.id} data={item} trim />;
       })}
     </div>
   );

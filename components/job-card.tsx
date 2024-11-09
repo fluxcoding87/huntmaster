@@ -12,9 +12,10 @@ import { useRouter } from "next/navigation";
 import { Preview } from "./preview";
 interface JobCardProps {
   data: Job;
+  trim?: boolean;
 }
 
-export const JobCard = ({ data }: JobCardProps) => {
+export const JobCard = ({ data, trim }: JobCardProps) => {
   const router = useRouter();
   const filteredSkills = data.skills.map((skill) => {
     const filteredSkill = frameworks.find((item) => item.value === skill);
@@ -24,10 +25,12 @@ export const JobCard = ({ data }: JobCardProps) => {
   return (
     <div
       onClick={() => router.push(`/jobs/${data.id}`)}
-      className="relative bg-white rounded-lg flex flex-col space-y-6 mt-8 px-4 py-6 border shadow-sm hover:shadow-lg transition cursor-pointer"
+      className="relative bg-white rounded-lg flex flex-col space-y-6 px-4 py-6 border shadow-sm hover:shadow-lg transition cursor-pointer"
     >
       <div className="flex flex-col justify-center gap-y-1">
-        <h2 className="font-semibold text-lg">{textLimiter(data.role, 3)}</h2>
+        <h2 className="font-semibold text-lg">
+          {trim ? textLimiter(data.role, 3) : data.role}
+        </h2>
         <p className="text-sm text-neutral-600 font-medium">{data.name}</p>
       </div>
       <div className="flex flex-col gap-y-2">

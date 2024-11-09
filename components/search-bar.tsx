@@ -9,18 +9,24 @@ import {
 } from "@/components/ui/select";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-export const SearchBar = () => {
+import { cn } from "@/lib/utils";
+export const SearchBar = ({ className }: { className?: string }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <div className="w-[230px] bg-white px-4 py-2 rounded-full text-sm text-neutral-500 flex items-center justify-between cursor-pointer">
+        <div
+          className={cn(
+            "w-[230px] bg-white px-4 py-2 rounded-full text-sm text-neutral-500 flex items-center justify-between cursor-pointer",
+            className
+          )}
+        >
           <span>Search for jobs here</span>
           <div className="rounded-full bg-amber-600 text-white flex items-center p-2 ml-auto">
             <SearchIcon className="size-4" />
           </div>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="sm:w-[340px] md:w-[480px]">
+      <PopoverContent className="sm:w-[340px] md:w-[480px] rounded-xl">
         <div className="flex flex-col justify-center space-y-4">
           <div>
             <div className="font-bold text-lg">Jobs</div>
@@ -53,7 +59,7 @@ export const SearchBar = () => {
           <Button
             type="submit"
             variant="outline"
-            className="flex items-center justify-center hover:bg-amber-600/30"
+            className="flex items-center justify-center hover:bg-amber-600/30 rounded-xl"
           >
             Search
           </Button>
