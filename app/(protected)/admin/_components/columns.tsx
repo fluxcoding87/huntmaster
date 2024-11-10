@@ -1,6 +1,5 @@
 "use client";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Employer } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";

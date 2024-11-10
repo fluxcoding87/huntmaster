@@ -1,5 +1,6 @@
 "use client";
 
+import { jobDepartments } from "@/app/(protected)/list/_components/job-departments-list";
 import { Filter } from "./filter";
 import {
   Card,
@@ -9,45 +10,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { State } from "country-state-city";
-
-const filterMap = [
-  {
-    label: "Work Mode",
-    type: "work",
-    data: ["Work from office", "Remote"],
-  },
-  {
-    label: "Location",
-    type: "location",
-    data: [
-      "Pune",
-      "Bengaluru",
-      "Delhi/NCR",
-      "Chandigarh",
-      "Hyderabad",
-      "Mumbai (All Areas)",
-      "Chennai",
-      "Surat",
-      "New Delhi",
-      "Indore",
-      "Kolkata",
-      "Ahemdabad",
-      "Noida",
-      "Gurugram",
-      "Coimbatore",
-      "Jaipur",
-      "Kochi",
-      "Mohali",
-      "Vadodara",
-      "Puducherry",
-      "Rajkot",
-      "Kozhikode",
-      "Nashik",
-      "Luknow",
-    ],
-  },
-];
+import { filterMap } from "@/lib/filters";
 
 export const FilterCard = () => {
   return (

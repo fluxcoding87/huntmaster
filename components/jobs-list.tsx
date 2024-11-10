@@ -17,7 +17,7 @@ export const JobsList = () => {
     return null;
   }
   return (
-    <div className="md:col-span-4 lg:col-span-8 flex flex-col gap-y-8 py-4 px-2">
+    <div className="space-y-4">
       {jobs.map((job) => (
         <JobCard key={job.id} data={job} trim={isMobile} />
       ))}
